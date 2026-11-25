@@ -1,0 +1,146 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>HTML 학교생활 메이커</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;700&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* 한 줄 세로 흐름: 번호 붙은 단계 카드가 위에서 아래로, 코드 블록마다 복사 버튼 */
+:root{
+  --bg:#f6f8fb; --surface:#ffffff; --fg:#1d2633; --muted:#5b6778;
+  --accent:#2f6fde; --accent-soft:#e6eefc; --line:#dbe2ec; --code-bg:#0f1b2d; --code-fg:#e3ebf7;
+  --display:"Gowun Dodum","Noto Sans KR",system-ui,sans-serif;
+  --body:"Noto Sans KR",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161e; --surface:#19212c; --fg:#e6ebf2; --muted:#9aa6b6;
+  --accent:#7aa7ff; --accent-soft:#1f2d46; --line:#2a3542; --code-bg:#0a1019; --code-fg:#d8e2f0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161e; --surface:#19212c; --fg:#e6ebf2; --muted:#9aa6b6;
+  --accent:#7aa7ff; --accent-soft:#1f2d46; --line:#2a3542; --code-bg:#0a1019; --code-fg:#d8e2f0; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 56px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1{font-family:var(--display);font-size:2rem;margin:0;text-wrap:balance}
+.lead{color:var(--muted);margin:0}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.step h2{font-family:var(--display);font-size:1.25rem;margin:0;display:flex;gap:10px;align-items:center}
+.num{background:var(--accent);color:var(--surface);border-radius:999px;width:30px;height:30px;display:inline-grid;place-items:center;font-size:.95rem;flex:none}
+.step p,.step ol,.step ul{margin:0}
+.step ol,.step ul{padding-left:1.3em}
+.tip{background:var(--accent-soft);border-radius:8px;padding:10px 14px;font-size:.93rem}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+.tw{overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700}
+code{font-family:var(--mono);font-size:.88em;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+.code{position:relative;min-width:0}
+.code pre{background:var(--code-bg);color:var(--code-fg);font-family:var(--mono);font-size:.85rem;line-height:1.55;
+  padding:16px;padding-top:44px;border-radius:10px;overflow-x:auto;margin:0}
+.copy{position:absolute;top:8px;right:8px;font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--surface);color:var(--fg);
+  border-radius:6px;padding:4px 12px;cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.copy.done{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+b{font-weight:700}
+</style>
+
+<div class="wrap">
+  <h1>HTML 게임을 앱처럼 만들기</h1>
+  <p class="lead">게임 파일을 GitHub에 올리고, 내 아이콘을 누르면 게임이 바로 열리도록 만드는 7단계예요.</p>
+
+  <section class="step">
+    <h2><span class="num">1</span>파일 준비하기</h2>
+    <p>컴퓨터에 폴더를 하나 만들고 아래 파일 4개를 넣어요.</p>
+    <div class="tw"><table>
+      <tr><th>파일</th><th>설명</th></tr>
+      <tr><td><code>index.html</code></td><td>게임 파일. 이름을 꼭 index.html로 바꿔요</td></tr>
+      <tr><td><code>icon-192.png</code></td><td>아이콘 그림, 192×192 픽셀</td></tr>
+      <tr><td><code>icon-512.png</code></td><td>같은 그림, 512×512 픽셀</td></tr>
+      <tr><td><code>manifest.json</code></td><td>앱 이름과 아이콘 정보 (2단계에서 만들어요)</td></tr>
+    </table></div>
+  </section>
+
+  <section class="step">
+    <h2><span class="num">2</span>manifest.json 만들기</h2>
+    <p>메모장에 아래 내용을 붙여 넣고 <b>manifest.json</b>으로 저장해요. "게임 이름"만 바꾸면 돼요.</p>
+    <div class="code"><button class="copy" type="button" id="copy-manifest">복사</button><pre>{
+  "name": "게임 이름",
+  "short_name": "게임 이름",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}</pre></div>
+    <p class="tip">저장할 때 파일 형식을 '모든 파일'로 바꿔야 manifest.json.txt가 되지 않아요.</p>
+  </section>
+
+  <section class="step">
+    <h2><span class="num">3</span>index.html에 아이콘 설정 넣기</h2>
+    <p>index.html을 메모장으로 열고 <code>&lt;head&gt;</code> 바로 아래 줄에 붙여 넣은 뒤 저장해요.</p>
+    <div class="code"><button class="copy" type="button" id="copy-head">복사</button><pre>&lt;link rel="manifest" href="manifest.json"&gt;
+&lt;link rel="icon" href="icon-192.png"&gt;
+&lt;link rel="apple-touch-icon" href="icon-192.png"&gt;
+&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+&lt;meta name="apple-mobile-web-app-title" content="게임 이름"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</pre></div>
+    <p class="tip">마지막 줄은 휴대폰 화면에 맞추는 설정이에요. 원래 파일에 이미 있으면 빼도 돼요.</p>
+  </section>
+
+  <section class="step">
+    <h2><span class="num">4</span>GitHub 가입하고 저장소 만들기</h2>
+    <ol>
+      <li><b>github.com</b>에서 회원가입을 해요.</li>
+      <li>오른쪽 위 <b>+</b> → <b>New repository</b>를 눌러요.</li>
+      <li>Repository name에 영어로 이름을 써요 (예: <code>mygame</code>).</li>
+      <li><b>Public</b>을 고르고 <b>Create repository</b>를 눌러요.</li>
+    </ol>
+  </section>
+
+  <section class="step">
+    <h2><span class="num">5</span>파일 올리기</h2>
+    <ol>
+      <li>저장소 화면 하늘색 상자 아래의 <b>uploading an existing file</b>을 눌러요.</li>
+      <li>1단계 파일 4개를 한꺼번에 끌어다 놓아요.</li>
+      <li>4개가 목록에 다 보이면 맨 아래 초록색 <b>Commit changes</b>를 눌러요.</li>
+    </ol>
+    <p class="tip">아래쪽 git 명령어 상자들은 쓰지 않아도 돼요.</p>
+  </section>
+
+  <section class="step">
+    <h2><span class="num">6</span>GitHub Pages 켜기</h2>
+    <ol>
+      <li>저장소 위쪽 <b>Settings</b> → 왼쪽 메뉴 <b>Pages</b>를 눌러요.</li>
+      <li>Branch를 <b>main</b>, 폴더는 <b>/(root)</b>로 두고 <b>Save</b>를 눌러요.</li>
+      <li>1~2분 뒤 새로고침하면 주소가 나와요. 예: <code>https://아이디.github.io/mygame/</code></li>
+      <li>주소를 눌러 게임이 잘 열리는지 확인해요.</li>
+    </ol>
+  </section>
+
+  <section class="step">
+    <h2><span class="num">7</span>아이콘으로 만들기</h2>
+    <ul>
+      <li><b>컴퓨터 크롬</b>: 주소 열기 → 주소창 오른쪽 설치 아이콘(⊕) 또는 점 세 개(⋮) → '페이지를 앱으로 설치'</li>
+      <li><b>안드로이드</b>: 크롬으로 주소 열기 → 점 세 개(⋮) → '홈 화면에 추가' 또는 '앱 설치'</li>
+      <li><b>아이폰</b>: 사파리로 주소 열기 → 공유 버튼 → '홈 화면에 추가'</li>
+    </ul>
+    <p>내 아이콘이 생기고, 누르면 주소창 없이 게임이 바로 열려요. 학생들에게는 6단계 주소만 보내 주면 돼요.</p>
+    <p class="tip">게임을 고쳤다면 5단계처럼 새 index.html을 다시 올리세요. 1~2분 뒤 반영돼요.</p>
+  </section>
+</div>
+
+<script>
+document.querySelectorAll('.copy').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const pre=btn.nextElementSibling, text=pre.textContent;
+    const done=()=>{btn.textContent='복사됨';btn.classList.add('done');setTimeout(()=>{btn.textContent='복사';btn.classList.remove('done')},1500)};
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);
+      try{document.execCommand('copy');done()}catch(e){btn.textContent='선택됨 · Ctrl+C'}};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,fallback)}else{fallback()}
+  });
+});
+</script>
+
+</body></html>
